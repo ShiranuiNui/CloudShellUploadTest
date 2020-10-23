@@ -27,8 +27,6 @@ namespace CloudShell_Test
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(AzureADB2CDefaults.BearerAuthenticationScheme)
-                .AddAzureADB2CBearer(options => Configuration.Bind("AzureAdB2C", options));
             services.AddControllers();
         }
 
@@ -41,12 +39,9 @@ namespace CloudShell_Test
             }
 
             app.UseHttpsRedirection();
-
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseRouting();
-
-            app.UseAuthentication();
-            app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
